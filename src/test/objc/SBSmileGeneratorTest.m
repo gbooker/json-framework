@@ -10,6 +10,8 @@
 #import <SBJson/SBSmileConstants.h>
 #import <SBJson/SmileUtil.h>
 
+#define null [NSNull null]
+
 @interface SBSmileGeneratorTest : SenTestCase
 
 @end
@@ -92,7 +94,7 @@
     unsigned char value2[] = {SMILE_TOKEN_LITERAL_START_ARRAY, SMILE_TOKEN_LITERAL_TRUE, SMILE_TOKEN_LITERAL_NULL, SMILE_TOKEN_LITERAL_FALSE, SMILE_TOKEN_LITERAL_END_ARRAY};
     [self runTestWithBlock:^NSData *(SBSmileWriter *writer) {
         writer.writeHeader = NO;
-        return [writer dataWithObject:@[@YES, [NSNull null], @NO]];
+        return [writer dataWithObject:@[@YES, null, @NO]];
     } bytes:value2 length:5];
 
     // and then array containing another array and short String
@@ -134,7 +136,7 @@
 - (void)testAnotherObject {
     [self runTestWithBlock:^NSData *(SBSmileWriter *writer) {
         writer.writeHeader = NO;
-        return [writer dataWithObject:@{@"a": @8, @"b": @[@YES], @"c": @{}, @"d":@{@"3": [NSNull null]}}];
+        return [writer dataWithObject:@{@"a": @8, @"b": @[@YES], @"c": @{}, @"d":@{@"3": null}}];
     } length:21];
 }
 
@@ -260,6 +262,94 @@
         writer.writeHeader = NO;
         return [writer dataWithNumber:@0.125];
     } length:11];
+}
+
+/**
+ * Simple test to verify that second reference will not output new String, but
+ * rather references one output earlier.
+ */
+- (void)testSharedNameSimple {
+    [self runTestWithBlock:^NSData *(SBSmileWriter *writer) {
+        writer.writeHeader = NO;
+        return [writer dataWithObject:@[@{@"abc": @1}, @{@"abc": @2}]];
+    } length:13];
+}
+
+// same as above, but with name >= 64 characters
+- (void)testSharedNameSimpleLong {
+    NSString *digits = @"01234567899";
+
+    // Base is 76 chars; loop over couple of shorter ones too
+
+    NSString *LONG_NAME = [NSString stringWithFormat:@"a%@b%@c%@d%@e%@f%@ABCD", digits, digits, digits, digits, digits, digits];
+
+    for (int i = 0; i < 4; ++i) {
+        NSUInteger strLen = LONG_NAME.length - i;
+        NSString *field = [LONG_NAME substringToIndex:strLen];
+        [self runTestWithBlock:^NSData *(SBSmileWriter *writer) {
+            writer.writeHeader = NO;
+            return [writer dataWithObject:@[@{field: @1}, @{field: @2}]];
+        } length:11 + field.length];
+
+//        // better also parse it back...
+//        JsonParser parser = _smileParser(result);
+//        assertToken(JsonToken.START_ARRAY, parser.nextToken());
+//
+//        assertToken(JsonToken.START_OBJECT, parser.nextToken());
+//        assertToken(JsonToken.FIELD_NAME, parser.nextToken());
+//        assertEquals(field, parser.getCurrentName());
+//        assertToken(JsonToken.VALUE_NUMBER_INT, parser.nextToken());
+//        assertEquals(1, parser.getIntValue());
+//        assertToken(JsonToken.END_OBJECT, parser.nextToken());
+//
+//        assertToken(JsonToken.START_OBJECT, parser.nextToken());
+//        assertToken(JsonToken.FIELD_NAME, parser.nextToken());
+//        assertEquals(field, parser.getCurrentName());
+//        assertToken(JsonToken.VALUE_NUMBER_INT, parser.nextToken());
+//        assertEquals(2, parser.getIntValue());
+//        assertToken(JsonToken.END_OBJECT, parser.nextToken());
+//
+//        assertToken(JsonToken.END_ARRAY, parser.nextToken());
+    }
+}
+
+- (void)testExpandSeenNames {
+    id obj = @{@"a1" :null,@"a2" :null,@"a3" :null,@"a4" :null,@"a5" :null,@"a6" :null,@"a7" :null,@"a8" :null,@"a9" :null,@"a10":null,
+               @"a11":null,@"a12":null,@"a13":null,@"a14":null,@"a15":null,@"a16":null,@"a17":null,@"a18":null,@"a19":null,@"a20":null,
+               @"a21":null,@"a22":null,@"a23":null,@"a24":null,@"a25":null,@"a26":null,@"a27":null,@"a28":null,@"a29":null,@"a30":null,
+               @"a31":null,@"a32":null,@"a33":null,@"a34":null,@"a35":null,@"a36":null,@"a37":null,@"a38":null,@"a39":null,@"a40":null,
+               @"a41":null,@"a42":null,@"a43":null,@"a44":null,@"a45":null,@"a46":null,@"a47":null,@"a48":null,@"a49":null,@"a50":null,
+               @"a51":null,@"a52":null,@"a53":null,@"a54":null,@"a55":null,@"a56":null,@"a57":null,@"a58":null,@"a59":null,@"a60":null,
+               @"a61":null,@"a62":null,@"a63":null,@"a64":null,@"a65":@{@"a32":null}};
+    /*
+     * {@code "a54".hashCode() & 63} has same value as {@code "a32".hashCode() & 63}
+     * "a32" is the next node of "a54" before expanding.
+     * 33: Null token
+     * -6: Start object token
+     * -5: End object token
+     */
+    char expectedResult[] = {-6,-127,97,49,33,-127,97,50,33,-127,97,51,33,-127,97,52,33,-127,97,53,33,-127,97,54,33,-127,97,55,33,-127,97,56,33,-127,97,57,33,
+            -126,97,49,48,33,-126,97,49,49,33,-126,97,49,50,33,-126,97,49,51,33,-126,97,49,52,33,-126,97,49,53,33,-126,97,49,54,33,-126,97,49,55,33,-126,97,49,56,33,
+            -126,97,49,57,33,-126,97,50,48,33,-126,97,50,49,33,-126,97,50,50,33,-126,97,50,51,33,-126,97,50,52,33,-126,97,50,53,33,-126,97,50,54,33,-126,97,50,55,33,
+            -126,97,50,56,33,-126,97,50,57,33,-126,97,51,48,33,-126,97,51,49,33,-126,97,51,50,33,-126,97,51,51,33,-126,97,51,52,33,-126,97,51,53,33,-126,97,51,54,33,
+            -126,97,51,55,33,-126,97,51,56,33,-126,97,51,57,33,-126,97,52,48,33,-126,97,52,49,33,-126,97,52,50,33,-126,97,52,51,33,-126,97,52,52,33,-126,97,52,53,33,
+            -126,97,52,54,33,-126,97,52,55,33,-126,97,52,56,33,-126,97,52,57,33,-126,97,53,48,33,-126,97,53,49,33,-126,97,53,50,33,-126,97,53,51,33,-126,97,53,52,33,
+            -126,97,53,53,33,-126,97,53,54,33,-126,97,53,55,33,-126,97,53,56,33,-126,97,53,57,33,-126,97,54,48,33,-126,97,54,49,33,-126,97,54,50,33,-126,97,54,51,33,
+            -126,97,54,52,33,
+            // "a65":{"a32":null}} :
+            -126,97,54,53,-6,95,33,-5,-5};
+    /*
+     * First "a32" is encoded as follows: -126,97,51,50
+     * Second one should be referenced: 95
+     */
+    [self runTestWithBlock:^NSData *(SBSmileWriter *writer) {
+        writer.writeHeader = NO;
+        writer.sortKeys = YES;
+        writer.sortKeysComparator = ^NSComparisonResult(NSString *s1, NSString *s2) {
+            return [s1 compare:s2 options:NSNumericSearch];
+        };
+        return [writer dataWithObject:obj];
+    } bytes:(unsigned char const *) expectedResult length:sizeof(expectedResult)];
 }
 
 @end
