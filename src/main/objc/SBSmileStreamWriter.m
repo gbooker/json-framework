@@ -488,6 +488,7 @@ static NSNumber *kNegativeInfinity;
 - (BOOL)writeObjectOpen {
     if ([self.state isInvalidState:self]) return NO;
     if ([self.state expectingKey:self]) return NO;
+    [self checkWriteHeader];
 
     [self.stateStack addObject:self.state];
     self.state = [SBJsonStreamWriterStateObjectStart sharedInstance];
