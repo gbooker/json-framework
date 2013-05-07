@@ -10,6 +10,7 @@
 #import "SBSmileStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
 #import "SBSmileConstants.h"
+#import "SBSmileSharedString.h"
 
 static NSNumber *kNotANumber;
 static NSNumber *kTrue;
@@ -17,43 +18,11 @@ static NSNumber *kFalse;
 static NSNumber *kPositiveInfinity;
 static NSNumber *kNegativeInfinity;
 
-@interface SBSmileStreamWriterSharedString : NSObject
-@property (strong) NSString *value;
-@property NSUInteger index;
-
-+ (id)stringWithValue:(NSString *)value index:(NSUInteger)index;
-
-- (id)initWithValue:(NSString *)value index:(NSUInteger)index;
-
-@end
-
-@implementation SBSmileStreamWriterSharedString
-
-+ (id)stringWithValue:(NSString *)value index:(NSUInteger)index {
-    return [[self alloc] initWithValue:value index:index];
-}
-
-- (id)initWithValue:(NSString *)value index:(NSUInteger)index {
-    self = [super init];
-    if (self) {
-        self.value = value;
-        self.index=index;
-    }
-
-    return self;
-}
-
-@end
-
 @implementation SBSmileStreamWriter {
     BOOL _headerWritten;
     BOOL _binaryAllowed;
-    NSMutableDictionary *_sharedStringValues;
-    NSMutableArray *_sharedStringValueIndexes;
-    NSUInteger _sharedStringValueIndex;
-    NSMutableDictionary *_sharedStringKeys;
-    NSMutableArray *_sharedStringKeyIndexes;
-    NSUInteger _sharedStringKeyIndex;
+    SBSmileSharedString *_sharedValues;
+    SBSmileSharedString *_sharedKeys;
 }
 
 + (void)initialize {
@@ -69,8 +38,6 @@ static NSNumber *kNegativeInfinity;
     if (self) {
         _writeHeader = YES;
         _shareKeys = YES;
-        _sharedStringValueIndex = SMILE_MAX_SHARED_NAMES - 1;
-        _sharedStringKeyIndex = SMILE_MAX_SHARED_NAMES - 1;
     }
 
     return self;
@@ -89,13 +56,11 @@ static NSNumber *kNegativeInfinity;
     char header[] = {SMILE_HEADER_BYTE_1, SMILE_HEADER_BYTE_2, SMILE_HEADER_BYTE_3, SMILE_HEADER_BYTE_4};
     if (_shareKeys) {
         header[3] |= SMILE_HEADER_BIT_HAS_SHARED_NAMES;
-        _sharedStringKeys = [[NSMutableDictionary alloc] init];
-        _sharedStringKeyIndexes = [[NSMutableArray alloc] init];
+        _sharedKeys = [[SBSmileSharedString alloc] init];
     }
     if (_shareStringValues) {
         header[3] |= SMILE_HEADER_BIT_HAS_SHARED_STRING_VALUES;
-        _sharedStringValues = [[NSMutableDictionary alloc] init];
-        _sharedStringValueIndexes = [[NSMutableArray alloc] init];
+        _sharedValues = [[SBSmileSharedString alloc] init];
     }
     if (_allowRawBinaryData) {
         header[3] |= SMILE_HEADER_BIT_HAS_RAW_BINARY;
@@ -157,9 +122,9 @@ static NSNumber *kNegativeInfinity;
         [self writeDelegateBytes:&value length:1];
     }
     else {
-        SBSmileStreamWriterSharedString *shared = _sharedStringKeys[s];
-        if (shared != nil) {
-            NSUInteger index = shared.index;
+        NSNumber *indexNum = [_sharedKeys indexForString:s];
+        if (indexNum != nil) {
+            NSUInteger index = [indexNum unsignedIntegerValue];
             if (index <= SMILE_MAX_SHORT_SHARED_NAME_REFERENCE_NUMBER)
             {
                 char value = (char)(SMILE_TOKEN_PREFIX_KEY_SHARED_SHORT + index);
@@ -206,18 +171,7 @@ static NSNumber *kNegativeInfinity;
                     [self writeDelegateBytes:&value length:1];
                 }
             }
-            _sharedStringKeyIndex = (_sharedStringKeyIndex + 1) % SMILE_MAX_SHARED_NAMES;
-            if (_sharedStringKeyIndexes.count > _sharedStringKeyIndex) {
-                SBSmileStreamWriterSharedString *existing = _sharedStringKeyIndexes[_sharedStringKeyIndex];
-                if (existing != nil)
-                    _sharedStringKeys[existing.value] = nil;
-            }
-            SBSmileStreamWriterSharedString *newString = [SBSmileStreamWriterSharedString stringWithValue:s index:_sharedStringKeyIndex];
-            _sharedStringKeys[s] = newString;
-            if (_sharedStringKeyIndexes.count > _sharedStringKeyIndex)
-                _sharedStringKeyIndexes[_sharedStringKeyIndex] = newString;
-            else
-                [_sharedStringKeyIndexes addObject:newString];
+            [_sharedKeys addString:s];
         }
     }
 }
@@ -228,9 +182,9 @@ static NSNumber *kNegativeInfinity;
         [self writeDelegateBytes:&value length:1];
     }
     else {
-        SBSmileStreamWriterSharedString *shared = _sharedStringValues[s];
-        if (shared != nil) {
-            NSUInteger index = shared.index;
+        NSNumber *indexNum = [_sharedValues indexForString:s];
+        if (indexNum != nil) {
+            NSUInteger index = [indexNum unsignedIntegerValue];
             if (index <= SMILE_MAX_SHORT_SHARED_VALUE_REFERENCE_NUMBER)
             {
                 char value = (char)(SMILE_TOKEN_PREFIX_SHARED_STRING_SHORT + index + 1);
@@ -278,18 +232,7 @@ static NSNumber *kNegativeInfinity;
                 }
             }
             if (length < SMILE_MAX_SHARED_STRING_LENGTH_BYTES) {
-                _sharedStringValueIndex = (_sharedStringValueIndex + 1) % SMILE_MAX_SHARED_NAMES;
-                if (_sharedStringValueIndexes.count > _sharedStringValueIndex) {
-                    SBSmileStreamWriterSharedString *existing = _sharedStringValueIndexes[_sharedStringValueIndex];
-                    if (existing != nil)
-                        _sharedStringValues[existing.value] = nil;
-                }
-                SBSmileStreamWriterSharedString *newString = [SBSmileStreamWriterSharedString stringWithValue:s index:_sharedStringValueIndex];
-                _sharedStringValues[s] = newString;
-                if (_sharedStringValueIndexes.count > _sharedStringValueIndex)
-                    _sharedStringValueIndexes[_sharedStringValueIndex] = newString;
-                else
-                    [_sharedStringValueIndexes addObject:newString];
+                [_sharedValues addString:s];
             }
         }
     }

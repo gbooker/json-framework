@@ -87,7 +87,9 @@
 		F62D0C0271B2A02F16AE7A6D /* SmileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D0EE33645C1D0516D294F /* SmileUtil.m */; };
 		F62D0C647C240A9C32CF3021 /* SBSmileGeneratorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D0D1EB61BACA6596FD084 /* SBSmileGeneratorTest.m */; };
 		F62D0DE91FACC649C8542040 /* SBSmileStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D0A85C374074FC44511BB /* SBSmileStreamWriter.m */; };
+		F62D0E40E19C59905FDB946A /* SBSmileSharedString.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D0783E9CA776B7389EBF8 /* SBSmileSharedString.h */; };
 		F62D0E4D7EACA90207ABE62F /* SBSmileStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D0E58E33F2696E5A5BB55 /* SBSmileStreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F62D0E9DCD5CD85A1CEFE6D5 /* SBSmileSharedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D0446EDE1401719AA29C8 /* SBSmileSharedString.m */; };
 		F8D04131C6B0E02EC6FB1D39 /* SBJsonStreamTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8D0414D5B6D665D141013D1 /* kuhn in Resources */ = {isa = PBXBuildFile; fileRef = F8D04F2055A30B07D7E8AEAF /* kuhn */; };
 		F8D0434D37D8894CD87E4982 /* SBJsonStreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D04518FD72EFA646581EAB /* SBJsonStreamTokeniser.m */; };
@@ -163,7 +165,9 @@
 		D7F64EB81696C3F8009DF12E /* format */ = {isa = PBXFileReference; lastKnownFileType = folder; path = format; sourceTree = "<group>"; };
 		F54E11061736F1A600FE6C42 /* SBSmileConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSmileConstants.h; sourceTree = "<group>"; };
 		F62D04058B3DEC74D6ED8301 /* SBSmileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileWriter.m; sourceTree = "<group>"; };
+		F62D0446EDE1401719AA29C8 /* SBSmileSharedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileSharedString.m; sourceTree = "<group>"; };
 		F62D05F1F2F85F70E332ED99 /* SmileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmileUtil.h; sourceTree = "<group>"; };
+		F62D0783E9CA776B7389EBF8 /* SBSmileSharedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSmileSharedString.h; sourceTree = "<group>"; };
 		F62D07CCAE656F274E6F7042 /* SBSmileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSmileWriter.h; sourceTree = "<group>"; };
 		F62D0A85C374074FC44511BB /* SBSmileStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileStreamWriter.m; sourceTree = "<group>"; };
 		F62D0D1EB61BACA6596FD084 /* SBSmileGeneratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileGeneratorTest.m; sourceTree = "<group>"; };
@@ -408,6 +412,8 @@
 				F62D07CCAE656F274E6F7042 /* SBSmileWriter.h */,
 				F62D0EE33645C1D0516D294F /* SmileUtil.m */,
 				F62D05F1F2F85F70E332ED99 /* SmileUtil.h */,
+				F62D0446EDE1401719AA29C8 /* SBSmileSharedString.m */,
+				F62D0783E9CA776B7389EBF8 /* SBSmileSharedString.h */,
 			);
 			name = Smile;
 			sourceTree = "<group>";
@@ -434,6 +440,7 @@
 				F54E11071736F1A600FE6C42 /* SBSmileConstants.h in Headers */,
 				F62D0B4ED512704982239694 /* SBSmileWriter.h in Headers */,
 				F62D07437C4C7381F8877299 /* SmileUtil.h in Headers */,
+				F62D0539CD8627A1BE69F798 /* SBSmileSharedString.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +463,7 @@
 				F54E11081736F1A600FE6C42 /* SBSmileConstants.h in Headers */,
 				F62D0814B4A47862C474C61C /* SBSmileWriter.h in Headers */,
 				F62D007E67FEAEF04C6BF43B /* SmileUtil.h in Headers */,
+				F62D0E40E19C59905FDB946A /* SBSmileSharedString.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +658,7 @@
 				F62D0DE91FACC649C8542040 /* SBSmileStreamWriter.m in Sources */,
 				F62D0615B60C66FD06244A05 /* SBSmileWriter.m in Sources */,
 				F62D0C0271B2A02F16AE7A6D /* SmileUtil.m in Sources */,
+				F62D0675032C355F3EC64B2F /* SBSmileSharedString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,6 +693,7 @@
 				F62D0BC0C5590BA8A135C2FA /* SBSmileStreamWriter.m in Sources */,
 				F62D006B3C12B96C7959CC28 /* SBSmileWriter.m in Sources */,
 				F62D039275FE923D17476A4A /* SmileUtil.m in Sources */,
+				F62D0E9DCD5CD85A1CEFE6D5 /* SBSmileSharedString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
