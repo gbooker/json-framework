@@ -275,44 +275,6 @@
     } length:13];
 }
 
-// same as above, but with name >= 64 characters
-- (void)testSharedNameSimpleLong {
-    NSString *digits = @"01234567899";
-
-    // Base is 76 chars; loop over couple of shorter ones too
-
-    NSString *LONG_NAME = [NSString stringWithFormat:@"a%@b%@c%@d%@e%@f%@ABCD", digits, digits, digits, digits, digits, digits];
-
-    for (int i = 0; i < 4; ++i) {
-        NSUInteger strLen = LONG_NAME.length - i;
-        NSString *field = [LONG_NAME substringToIndex:strLen];
-        [self runTestWithBlock:^NSData *(SBSmileWriter *writer) {
-            writer.writeHeader = NO;
-            return [writer dataWithObject:@[@{field: @1}, @{field: @2}]];
-        } length:11 + field.length];
-
-//        // better also parse it back...
-//        JsonParser parser = _smileParser(result);
-//        assertToken(JsonToken.START_ARRAY, parser.nextToken());
-//
-//        assertToken(JsonToken.START_OBJECT, parser.nextToken());
-//        assertToken(JsonToken.FIELD_NAME, parser.nextToken());
-//        assertEquals(field, parser.getCurrentName());
-//        assertToken(JsonToken.VALUE_NUMBER_INT, parser.nextToken());
-//        assertEquals(1, parser.getIntValue());
-//        assertToken(JsonToken.END_OBJECT, parser.nextToken());
-//
-//        assertToken(JsonToken.START_OBJECT, parser.nextToken());
-//        assertToken(JsonToken.FIELD_NAME, parser.nextToken());
-//        assertEquals(field, parser.getCurrentName());
-//        assertToken(JsonToken.VALUE_NUMBER_INT, parser.nextToken());
-//        assertEquals(2, parser.getIntValue());
-//        assertToken(JsonToken.END_OBJECT, parser.nextToken());
-//
-//        assertToken(JsonToken.END_ARRAY, parser.nextToken());
-    }
-}
-
 // [Issue#8] Test by: M. Tarik Yurt  / mtyurt@gmail.com
 - (void)testExpandSeenNames {
     id obj = @{@"a1" :null,@"a2" :null,@"a3" :null,@"a4" :null,@"a5" :null,@"a6" :null,@"a7" :null,@"a8" :null,@"a9" :null,@"a10":null,
