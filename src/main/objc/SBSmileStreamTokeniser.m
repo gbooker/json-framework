@@ -258,7 +258,10 @@
                         //TODO binary
                         return sbsmile_token_error;
                     case 0xC:
-                        //0xEC: shared string
+                    case 0xD:
+                    case 0xE:
+                    case 0xF:
+                        //0xEC-0xEF: shared string
                         tok = sbsmile_token_string_reference_long;
                         *token = (_bytes + _index);
                         *length = 2;

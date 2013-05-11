@@ -199,7 +199,7 @@ static NSNumber *kNegativeInfinity;
             NSUInteger length;
             if ([s canBeConvertedToEncoding:NSASCIIStringEncoding]) {
                 NSData *data = [s dataUsingEncoding:NSASCIIStringEncoding];
-                length = s.length;
+                length = data.length;
                 char value;
                 if (length <= SMILE_MAX_SHORT_VALUE_STRING_BYTES) {
                     value = (char)(SMILE_TOKEN_PREFIX_TINY_ASCII + length - 1);
@@ -216,7 +216,7 @@ static NSNumber *kNegativeInfinity;
             }
             else {
                 NSData *data = [s dataUsingEncoding:NSUTF8StringEncoding];
-                length = s.length;
+                length = data.length;
                 char value;
                 if (length <= SMILE_MAX_SHORT_VALUE_STRING_BYTES) {
                     value = (char)(SMILE_TOKEN_PREFIX_TINY_UNICODE + length - 2);
@@ -231,7 +231,7 @@ static NSNumber *kNegativeInfinity;
                     [self writeDelegateBytes:&value length:1];
                 }
             }
-            if (length < SMILE_MAX_SHARED_STRING_LENGTH_BYTES) {
+            if (length <= SMILE_MAX_SHARED_STRING_LENGTH_BYTES) {
                 [_sharedValues addString:s];
             }
         }

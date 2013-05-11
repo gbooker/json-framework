@@ -76,8 +76,69 @@
 		F54E11081736F1A600FE6C42 /* SBSmileConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F54E11061736F1A600FE6C42 /* SBSmileConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F54E110A1738B75700FE6C42 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F54E11091738B75700FE6C42 /* SenTestingKit.framework */; };
 		F54E110B1738B75E00FE6C42 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F54E11091738B75700FE6C42 /* SenTestingKit.framework */; };
+		F54E112D173DBE6C00FE6C42 /* db100.xml.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E110E173DBE6C00FE6C42 /* db100.xml.jsn */; };
+		F54E112E173DBE6C00FE6C42 /* db100.xml.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E110E173DBE6C00FE6C42 /* db100.xml.jsn */; };
+		F54E112F173DBE6C00FE6C42 /* json-org-sample1.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E110F173DBE6C00FE6C42 /* json-org-sample1.jsn */; };
+		F54E1130173DBE6C00FE6C42 /* json-org-sample1.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E110F173DBE6C00FE6C42 /* json-org-sample1.jsn */; };
+		F54E1131173DBE6C00FE6C42 /* json-org-sample2.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1110173DBE6C00FE6C42 /* json-org-sample2.jsn */; };
+		F54E1132173DBE6C00FE6C42 /* json-org-sample2.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1110173DBE6C00FE6C42 /* json-org-sample2.jsn */; };
+		F54E1133173DBE6C00FE6C42 /* json-org-sample3.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1111173DBE6C00FE6C42 /* json-org-sample3.jsn */; };
+		F54E1134173DBE6C00FE6C42 /* json-org-sample3.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1111173DBE6C00FE6C42 /* json-org-sample3.jsn */; };
+		F54E1135173DBE6C00FE6C42 /* json-org-sample4.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1112173DBE6C00FE6C42 /* json-org-sample4.jsn */; };
+		F54E1136173DBE6C00FE6C42 /* json-org-sample4.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1112173DBE6C00FE6C42 /* json-org-sample4.jsn */; };
+		F54E1137173DBE6C00FE6C42 /* json-org-sample5.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1113173DBE6C00FE6C42 /* json-org-sample5.jsn */; };
+		F54E1138173DBE6C00FE6C42 /* json-org-sample5.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1113173DBE6C00FE6C42 /* json-org-sample5.jsn */; };
+		F54E1139173DBE6C00FE6C42 /* map-spain.xml.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1114173DBE6C00FE6C42 /* map-spain.xml.jsn */; };
+		F54E113A173DBE6C00FE6C42 /* map-spain.xml.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1114173DBE6C00FE6C42 /* map-spain.xml.jsn */; };
+		F54E113B173DBE6C00FE6C42 /* ns-invoice100.xml.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1115173DBE6C00FE6C42 /* ns-invoice100.xml.jsn */; };
+		F54E113C173DBE6C00FE6C42 /* ns-invoice100.xml.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1115173DBE6C00FE6C42 /* ns-invoice100.xml.jsn */; };
+		F54E113D173DBE6C00FE6C42 /* ns-soap.xml.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1116173DBE6C00FE6C42 /* ns-soap.xml.jsn */; };
+		F54E113E173DBE6C00FE6C42 /* ns-soap.xml.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1116173DBE6C00FE6C42 /* ns-soap.xml.jsn */; };
+		F54E113F173DBE6C00FE6C42 /* numbers-fp-4k.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1117173DBE6C00FE6C42 /* numbers-fp-4k.jsn */; };
+		F54E1140173DBE6C00FE6C42 /* numbers-fp-4k.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1117173DBE6C00FE6C42 /* numbers-fp-4k.jsn */; };
+		F54E1141173DBE6C00FE6C42 /* numbers-fp-64k.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1118173DBE6C00FE6C42 /* numbers-fp-64k.jsn */; };
+		F54E1142173DBE6C00FE6C42 /* numbers-fp-64k.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1118173DBE6C00FE6C42 /* numbers-fp-64k.jsn */; };
+		F54E1143173DBE6C00FE6C42 /* numbers-int-4k.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1119173DBE6C00FE6C42 /* numbers-int-4k.jsn */; };
+		F54E1144173DBE6C00FE6C42 /* numbers-int-4k.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E1119173DBE6C00FE6C42 /* numbers-int-4k.jsn */; };
+		F54E1145173DBE6C00FE6C42 /* numbers-int-64k.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E111A173DBE6C00FE6C42 /* numbers-int-64k.jsn */; };
+		F54E1146173DBE6D00FE6C42 /* numbers-int-64k.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E111A173DBE6C00FE6C42 /* numbers-int-64k.jsn */; };
+		F54E1147173DBE6D00FE6C42 /* test1.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E111B173DBE6C00FE6C42 /* test1.jsn */; };
+		F54E1148173DBE6D00FE6C42 /* test1.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E111B173DBE6C00FE6C42 /* test1.jsn */; };
+		F54E1149173DBE6D00FE6C42 /* test2.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E111C173DBE6C00FE6C42 /* test2.jsn */; };
+		F54E114A173DBE6D00FE6C42 /* test2.jsn in Resources */ = {isa = PBXBuildFile; fileRef = F54E111C173DBE6C00FE6C42 /* test2.jsn */; };
+		F54E114B173DBE6D00FE6C42 /* db100.xml.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E111E173DBE6C00FE6C42 /* db100.xml.smile */; };
+		F54E114C173DBE6D00FE6C42 /* db100.xml.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E111E173DBE6C00FE6C42 /* db100.xml.smile */; };
+		F54E114D173DBE6D00FE6C42 /* json-org-sample1.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E111F173DBE6C00FE6C42 /* json-org-sample1.smile */; };
+		F54E114E173DBE6D00FE6C42 /* json-org-sample1.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E111F173DBE6C00FE6C42 /* json-org-sample1.smile */; };
+		F54E114F173DBE6D00FE6C42 /* json-org-sample2.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1120173DBE6C00FE6C42 /* json-org-sample2.smile */; };
+		F54E1150173DBE6D00FE6C42 /* json-org-sample2.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1120173DBE6C00FE6C42 /* json-org-sample2.smile */; };
+		F54E1151173DBE6D00FE6C42 /* json-org-sample3.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1121173DBE6C00FE6C42 /* json-org-sample3.smile */; };
+		F54E1152173DBE6D00FE6C42 /* json-org-sample3.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1121173DBE6C00FE6C42 /* json-org-sample3.smile */; };
+		F54E1153173DBE6D00FE6C42 /* json-org-sample4.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1122173DBE6C00FE6C42 /* json-org-sample4.smile */; };
+		F54E1154173DBE6D00FE6C42 /* json-org-sample4.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1122173DBE6C00FE6C42 /* json-org-sample4.smile */; };
+		F54E1155173DBE6D00FE6C42 /* json-org-sample5.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1123173DBE6C00FE6C42 /* json-org-sample5.smile */; };
+		F54E1156173DBE6D00FE6C42 /* json-org-sample5.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1123173DBE6C00FE6C42 /* json-org-sample5.smile */; };
+		F54E1157173DBE6D00FE6C42 /* map-spain.xml.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1124173DBE6C00FE6C42 /* map-spain.xml.smile */; };
+		F54E1158173DBE6D00FE6C42 /* map-spain.xml.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1124173DBE6C00FE6C42 /* map-spain.xml.smile */; };
+		F54E1159173DBE6D00FE6C42 /* ns-invoice100.xml.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1125173DBE6C00FE6C42 /* ns-invoice100.xml.smile */; };
+		F54E115A173DBE6D00FE6C42 /* ns-invoice100.xml.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1125173DBE6C00FE6C42 /* ns-invoice100.xml.smile */; };
+		F54E115B173DBE6D00FE6C42 /* ns-soap.xml.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1126173DBE6C00FE6C42 /* ns-soap.xml.smile */; };
+		F54E115C173DBE6D00FE6C42 /* ns-soap.xml.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1126173DBE6C00FE6C42 /* ns-soap.xml.smile */; };
+		F54E115D173DBE6D00FE6C42 /* numbers-fp-4k.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1127173DBE6C00FE6C42 /* numbers-fp-4k.smile */; };
+		F54E115E173DBE6D00FE6C42 /* numbers-fp-4k.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1127173DBE6C00FE6C42 /* numbers-fp-4k.smile */; };
+		F54E115F173DBE6D00FE6C42 /* numbers-fp-64k.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1128173DBE6C00FE6C42 /* numbers-fp-64k.smile */; };
+		F54E1160173DBE6D00FE6C42 /* numbers-fp-64k.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1128173DBE6C00FE6C42 /* numbers-fp-64k.smile */; };
+		F54E1161173DBE6D00FE6C42 /* numbers-int-4k.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1129173DBE6C00FE6C42 /* numbers-int-4k.smile */; };
+		F54E1162173DBE6D00FE6C42 /* numbers-int-4k.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E1129173DBE6C00FE6C42 /* numbers-int-4k.smile */; };
+		F54E1163173DBE6D00FE6C42 /* numbers-int-64k.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E112A173DBE6C00FE6C42 /* numbers-int-64k.smile */; };
+		F54E1164173DBE6D00FE6C42 /* numbers-int-64k.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E112A173DBE6C00FE6C42 /* numbers-int-64k.smile */; };
+		F54E1165173DBE6D00FE6C42 /* test1.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E112B173DBE6C00FE6C42 /* test1.smile */; };
+		F54E1166173DBE6D00FE6C42 /* test1.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E112B173DBE6C00FE6C42 /* test1.smile */; };
+		F54E1167173DBE6D00FE6C42 /* test2.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E112C173DBE6C00FE6C42 /* test2.smile */; };
+		F54E1168173DBE6D00FE6C42 /* test2.smile in Resources */ = {isa = PBXBuildFile; fileRef = F54E112C173DBE6C00FE6C42 /* test2.smile */; };
 		F62D006B3C12B96C7959CC28 /* SBSmileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D04058B3DEC74D6ED8301 /* SBSmileWriter.m */; };
 		F62D007E67FEAEF04C6BF43B /* SmileUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D05F1F2F85F70E332ED99 /* SmileUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F62D010076A8E72EC95A187E /* SBSmileInteropTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D0E06E6B929465E3505D0 /* SBSmileInteropTest.m */; };
 		F62D01EDDFD931111E2D769C /* SBSmileParser.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D035ED04C4C8F3A690737 /* SBSmileParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F62D02634EEC3FD6D669429A /* SBSmileStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D0B43FB9C7EAEA656B7C9 /* SBSmileStreamParser.h */; };
 		F62D02D6D6596F31DF408DFA /* SBSmileStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D0750312ABC1A00029790 /* SBSmileStreamParser.m */; };
@@ -96,6 +157,7 @@
 		F62D07437C4C7381F8877299 /* SmileUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D05F1F2F85F70E332ED99 /* SmileUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F62D07B2FB81ECBBF9C64B88 /* SBSmileStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D0E58E33F2696E5A5BB55 /* SBSmileStreamWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F62D07F1235548BB7B1A92EB /* SBSmileParser.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D035ED04C4C8F3A690737 /* SBSmileParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F62D07F7669A075E44FE079C /* SBSmileInteropTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D0E06E6B929465E3505D0 /* SBSmileInteropTest.m */; };
 		F62D0814B4A47862C474C61C /* SBSmileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = F62D07CCAE656F274E6F7042 /* SBSmileWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F62D084133AE15884D1A18A6 /* SBSmileRoundTripTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D0B236F48DA1ABBA9674C /* SBSmileRoundTripTest.m */; };
 		F62D0886412919B9F8045F0C /* SBSmileParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = F62D02D436633EF76F5A3175 /* SBSmileParserTest.m */; };
@@ -189,6 +251,36 @@
 		D7F64EB81696C3F8009DF12E /* format */ = {isa = PBXFileReference; lastKnownFileType = folder; path = format; sourceTree = "<group>"; };
 		F54E11061736F1A600FE6C42 /* SBSmileConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSmileConstants.h; sourceTree = "<group>"; };
 		F54E11091738B75700FE6C42 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		F54E110E173DBE6C00FE6C42 /* db100.xml.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = db100.xml.jsn; sourceTree = "<group>"; };
+		F54E110F173DBE6C00FE6C42 /* json-org-sample1.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample1.jsn"; sourceTree = "<group>"; };
+		F54E1110173DBE6C00FE6C42 /* json-org-sample2.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample2.jsn"; sourceTree = "<group>"; };
+		F54E1111173DBE6C00FE6C42 /* json-org-sample3.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample3.jsn"; sourceTree = "<group>"; };
+		F54E1112173DBE6C00FE6C42 /* json-org-sample4.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample4.jsn"; sourceTree = "<group>"; };
+		F54E1113173DBE6C00FE6C42 /* json-org-sample5.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample5.jsn"; sourceTree = "<group>"; };
+		F54E1114173DBE6C00FE6C42 /* map-spain.xml.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "map-spain.xml.jsn"; sourceTree = "<group>"; };
+		F54E1115173DBE6C00FE6C42 /* ns-invoice100.xml.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ns-invoice100.xml.jsn"; sourceTree = "<group>"; };
+		F54E1116173DBE6C00FE6C42 /* ns-soap.xml.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ns-soap.xml.jsn"; sourceTree = "<group>"; };
+		F54E1117173DBE6C00FE6C42 /* numbers-fp-4k.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "numbers-fp-4k.jsn"; sourceTree = "<group>"; };
+		F54E1118173DBE6C00FE6C42 /* numbers-fp-64k.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "numbers-fp-64k.jsn"; sourceTree = "<group>"; };
+		F54E1119173DBE6C00FE6C42 /* numbers-int-4k.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "numbers-int-4k.jsn"; sourceTree = "<group>"; };
+		F54E111A173DBE6C00FE6C42 /* numbers-int-64k.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "numbers-int-64k.jsn"; sourceTree = "<group>"; };
+		F54E111B173DBE6C00FE6C42 /* test1.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test1.jsn; sourceTree = "<group>"; };
+		F54E111C173DBE6C00FE6C42 /* test2.jsn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.jsn; sourceTree = "<group>"; };
+		F54E111E173DBE6C00FE6C42 /* db100.xml.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = db100.xml.smile; sourceTree = "<group>"; };
+		F54E111F173DBE6C00FE6C42 /* json-org-sample1.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample1.smile"; sourceTree = "<group>"; };
+		F54E1120173DBE6C00FE6C42 /* json-org-sample2.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample2.smile"; sourceTree = "<group>"; };
+		F54E1121173DBE6C00FE6C42 /* json-org-sample3.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample3.smile"; sourceTree = "<group>"; };
+		F54E1122173DBE6C00FE6C42 /* json-org-sample4.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample4.smile"; sourceTree = "<group>"; };
+		F54E1123173DBE6C00FE6C42 /* json-org-sample5.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "json-org-sample5.smile"; sourceTree = "<group>"; };
+		F54E1124173DBE6C00FE6C42 /* map-spain.xml.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "map-spain.xml.smile"; sourceTree = "<group>"; };
+		F54E1125173DBE6C00FE6C42 /* ns-invoice100.xml.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ns-invoice100.xml.smile"; sourceTree = "<group>"; };
+		F54E1126173DBE6C00FE6C42 /* ns-soap.xml.smile */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ns-soap.xml.smile"; sourceTree = "<group>"; };
+		F54E1127173DBE6C00FE6C42 /* numbers-fp-4k.smile */ = {isa = PBXFileReference; lastKnownFileType = file; path = "numbers-fp-4k.smile"; sourceTree = "<group>"; };
+		F54E1128173DBE6C00FE6C42 /* numbers-fp-64k.smile */ = {isa = PBXFileReference; lastKnownFileType = file; path = "numbers-fp-64k.smile"; sourceTree = "<group>"; };
+		F54E1129173DBE6C00FE6C42 /* numbers-int-4k.smile */ = {isa = PBXFileReference; lastKnownFileType = file; path = "numbers-int-4k.smile"; sourceTree = "<group>"; };
+		F54E112A173DBE6C00FE6C42 /* numbers-int-64k.smile */ = {isa = PBXFileReference; lastKnownFileType = file; path = "numbers-int-64k.smile"; sourceTree = "<group>"; };
+		F54E112B173DBE6C00FE6C42 /* test1.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test1.smile; sourceTree = "<group>"; };
+		F54E112C173DBE6C00FE6C42 /* test2.smile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.smile; sourceTree = "<group>"; };
 		F62D01A6F408DC02B3B21144 /* SBSmileStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileStreamParserState.m; sourceTree = "<group>"; };
 		F62D02D436633EF76F5A3175 /* SBSmileParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileParserTest.m; sourceTree = "<group>"; };
 		F62D035ED04C4C8F3A690737 /* SBSmileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSmileParser.h; sourceTree = "<group>"; };
@@ -207,6 +299,7 @@
 		F62D0B9381E3DF3059A35CFD /* SBSmileRoundTripTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSmileRoundTripTest.h; sourceTree = "<group>"; };
 		F62D0C6DD49D84E85432D775 /* SBSmileParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileParser.m; sourceTree = "<group>"; };
 		F62D0D1EB61BACA6596FD084 /* SBSmileGeneratorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileGeneratorTest.m; sourceTree = "<group>"; };
+		F62D0E06E6B929465E3505D0 /* SBSmileInteropTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSmileInteropTest.m; sourceTree = "<group>"; };
 		F62D0E58E33F2696E5A5BB55 /* SBSmileStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSmileStreamWriter.h; sourceTree = "<group>"; };
 		F62D0EE33645C1D0516D294F /* SmileUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmileUtil.m; sourceTree = "<group>"; };
 		F8D041B0DB689CC78ABDF64D /* SBJsonStreamTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamTokeniser.h; sourceTree = "<group>"; };
@@ -265,6 +358,7 @@
 				BC1232571391D5CC00131607 /* SBJsonTests */,
 				BCC2626B13920FC7003D9994 /* sbjson-ios */,
 				BCC2627C13920FC7003D9994 /* sbjson-iosTests */,
+				F54E110C173DBE6C00FE6C42 /* data */,
 				BC12323F1391D5CC00131607 /* Frameworks */,
 				BC12323E1391D5CC00131607 /* Products */,
 			);
@@ -427,6 +521,7 @@
 				F62D02D436633EF76F5A3175 /* SBSmileParserTest.m */,
 				F62D0B236F48DA1ABBA9674C /* SBSmileRoundTripTest.m */,
 				F62D0B9381E3DF3059A35CFD /* SBSmileRoundTripTest.h */,
+				F62D0E06E6B929465E3505D0 /* SBSmileInteropTest.m */,
 			);
 			path = objc;
 			sourceTree = "<group>";
@@ -442,6 +537,59 @@
 				F8D04F2055A30B07D7E8AEAF /* kuhn */,
 			);
 			path = resources;
+			sourceTree = "<group>";
+		};
+		F54E110C173DBE6C00FE6C42 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				F54E110D173DBE6C00FE6C42 /* json */,
+				F54E111D173DBE6C00FE6C42 /* smile */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		F54E110D173DBE6C00FE6C42 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				F54E110E173DBE6C00FE6C42 /* db100.xml.jsn */,
+				F54E110F173DBE6C00FE6C42 /* json-org-sample1.jsn */,
+				F54E1110173DBE6C00FE6C42 /* json-org-sample2.jsn */,
+				F54E1111173DBE6C00FE6C42 /* json-org-sample3.jsn */,
+				F54E1112173DBE6C00FE6C42 /* json-org-sample4.jsn */,
+				F54E1113173DBE6C00FE6C42 /* json-org-sample5.jsn */,
+				F54E1114173DBE6C00FE6C42 /* map-spain.xml.jsn */,
+				F54E1115173DBE6C00FE6C42 /* ns-invoice100.xml.jsn */,
+				F54E1116173DBE6C00FE6C42 /* ns-soap.xml.jsn */,
+				F54E1117173DBE6C00FE6C42 /* numbers-fp-4k.jsn */,
+				F54E1118173DBE6C00FE6C42 /* numbers-fp-64k.jsn */,
+				F54E1119173DBE6C00FE6C42 /* numbers-int-4k.jsn */,
+				F54E111A173DBE6C00FE6C42 /* numbers-int-64k.jsn */,
+				F54E111B173DBE6C00FE6C42 /* test1.jsn */,
+				F54E111C173DBE6C00FE6C42 /* test2.jsn */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		F54E111D173DBE6C00FE6C42 /* smile */ = {
+			isa = PBXGroup;
+			children = (
+				F54E111E173DBE6C00FE6C42 /* db100.xml.smile */,
+				F54E111F173DBE6C00FE6C42 /* json-org-sample1.smile */,
+				F54E1120173DBE6C00FE6C42 /* json-org-sample2.smile */,
+				F54E1121173DBE6C00FE6C42 /* json-org-sample3.smile */,
+				F54E1122173DBE6C00FE6C42 /* json-org-sample4.smile */,
+				F54E1123173DBE6C00FE6C42 /* json-org-sample5.smile */,
+				F54E1124173DBE6C00FE6C42 /* map-spain.xml.smile */,
+				F54E1125173DBE6C00FE6C42 /* ns-invoice100.xml.smile */,
+				F54E1126173DBE6C00FE6C42 /* ns-soap.xml.smile */,
+				F54E1127173DBE6C00FE6C42 /* numbers-fp-4k.smile */,
+				F54E1128173DBE6C00FE6C42 /* numbers-fp-64k.smile */,
+				F54E1129173DBE6C00FE6C42 /* numbers-int-4k.smile */,
+				F54E112A173DBE6C00FE6C42 /* numbers-int-64k.smile */,
+				F54E112B173DBE6C00FE6C42 /* test1.smile */,
+				F54E112C173DBE6C00FE6C42 /* test2.smile */,
+			);
+			path = smile;
 			sourceTree = "<group>";
 		};
 		F62D00FA5F41E8A1E9518D10 /* Smile */ = {
@@ -650,6 +798,36 @@
 				D7F64EB91696C3F8009DF12E /* comparatorsort in Resources */,
 				D7F64EBB1696C3F8009DF12E /* format in Resources */,
 				F8D04FA987CD1C73A4CF0A71 /* kuhn in Resources */,
+				F54E112D173DBE6C00FE6C42 /* db100.xml.jsn in Resources */,
+				F54E112F173DBE6C00FE6C42 /* json-org-sample1.jsn in Resources */,
+				F54E1131173DBE6C00FE6C42 /* json-org-sample2.jsn in Resources */,
+				F54E1133173DBE6C00FE6C42 /* json-org-sample3.jsn in Resources */,
+				F54E1135173DBE6C00FE6C42 /* json-org-sample4.jsn in Resources */,
+				F54E1137173DBE6C00FE6C42 /* json-org-sample5.jsn in Resources */,
+				F54E1139173DBE6C00FE6C42 /* map-spain.xml.jsn in Resources */,
+				F54E113B173DBE6C00FE6C42 /* ns-invoice100.xml.jsn in Resources */,
+				F54E113D173DBE6C00FE6C42 /* ns-soap.xml.jsn in Resources */,
+				F54E113F173DBE6C00FE6C42 /* numbers-fp-4k.jsn in Resources */,
+				F54E1141173DBE6C00FE6C42 /* numbers-fp-64k.jsn in Resources */,
+				F54E1143173DBE6C00FE6C42 /* numbers-int-4k.jsn in Resources */,
+				F54E1145173DBE6C00FE6C42 /* numbers-int-64k.jsn in Resources */,
+				F54E1147173DBE6D00FE6C42 /* test1.jsn in Resources */,
+				F54E1149173DBE6D00FE6C42 /* test2.jsn in Resources */,
+				F54E114B173DBE6D00FE6C42 /* db100.xml.smile in Resources */,
+				F54E114D173DBE6D00FE6C42 /* json-org-sample1.smile in Resources */,
+				F54E114F173DBE6D00FE6C42 /* json-org-sample2.smile in Resources */,
+				F54E1151173DBE6D00FE6C42 /* json-org-sample3.smile in Resources */,
+				F54E1153173DBE6D00FE6C42 /* json-org-sample4.smile in Resources */,
+				F54E1155173DBE6D00FE6C42 /* json-org-sample5.smile in Resources */,
+				F54E1157173DBE6D00FE6C42 /* map-spain.xml.smile in Resources */,
+				F54E1159173DBE6D00FE6C42 /* ns-invoice100.xml.smile in Resources */,
+				F54E115B173DBE6D00FE6C42 /* ns-soap.xml.smile in Resources */,
+				F54E115D173DBE6D00FE6C42 /* numbers-fp-4k.smile in Resources */,
+				F54E115F173DBE6D00FE6C42 /* numbers-fp-64k.smile in Resources */,
+				F54E1161173DBE6D00FE6C42 /* numbers-int-4k.smile in Resources */,
+				F54E1163173DBE6D00FE6C42 /* numbers-int-64k.smile in Resources */,
+				F54E1165173DBE6D00FE6C42 /* test1.smile in Resources */,
+				F54E1167173DBE6D00FE6C42 /* test2.smile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +842,36 @@
 				D7F64EBA1696C3F8009DF12E /* comparatorsort in Resources */,
 				D7F64EBC1696C3F8009DF12E /* format in Resources */,
 				F8D0414D5B6D665D141013D1 /* kuhn in Resources */,
+				F54E112E173DBE6C00FE6C42 /* db100.xml.jsn in Resources */,
+				F54E1130173DBE6C00FE6C42 /* json-org-sample1.jsn in Resources */,
+				F54E1132173DBE6C00FE6C42 /* json-org-sample2.jsn in Resources */,
+				F54E1134173DBE6C00FE6C42 /* json-org-sample3.jsn in Resources */,
+				F54E1136173DBE6C00FE6C42 /* json-org-sample4.jsn in Resources */,
+				F54E1138173DBE6C00FE6C42 /* json-org-sample5.jsn in Resources */,
+				F54E113A173DBE6C00FE6C42 /* map-spain.xml.jsn in Resources */,
+				F54E113C173DBE6C00FE6C42 /* ns-invoice100.xml.jsn in Resources */,
+				F54E113E173DBE6C00FE6C42 /* ns-soap.xml.jsn in Resources */,
+				F54E1140173DBE6C00FE6C42 /* numbers-fp-4k.jsn in Resources */,
+				F54E1142173DBE6C00FE6C42 /* numbers-fp-64k.jsn in Resources */,
+				F54E1144173DBE6C00FE6C42 /* numbers-int-4k.jsn in Resources */,
+				F54E1146173DBE6D00FE6C42 /* numbers-int-64k.jsn in Resources */,
+				F54E1148173DBE6D00FE6C42 /* test1.jsn in Resources */,
+				F54E114A173DBE6D00FE6C42 /* test2.jsn in Resources */,
+				F54E114C173DBE6D00FE6C42 /* db100.xml.smile in Resources */,
+				F54E114E173DBE6D00FE6C42 /* json-org-sample1.smile in Resources */,
+				F54E1150173DBE6D00FE6C42 /* json-org-sample2.smile in Resources */,
+				F54E1152173DBE6D00FE6C42 /* json-org-sample3.smile in Resources */,
+				F54E1154173DBE6D00FE6C42 /* json-org-sample4.smile in Resources */,
+				F54E1156173DBE6D00FE6C42 /* json-org-sample5.smile in Resources */,
+				F54E1158173DBE6D00FE6C42 /* map-spain.xml.smile in Resources */,
+				F54E115A173DBE6D00FE6C42 /* ns-invoice100.xml.smile in Resources */,
+				F54E115C173DBE6D00FE6C42 /* ns-soap.xml.smile in Resources */,
+				F54E115E173DBE6D00FE6C42 /* numbers-fp-4k.smile in Resources */,
+				F54E1160173DBE6D00FE6C42 /* numbers-fp-64k.smile in Resources */,
+				F54E1162173DBE6D00FE6C42 /* numbers-int-4k.smile in Resources */,
+				F54E1164173DBE6D00FE6C42 /* numbers-int-64k.smile in Resources */,
+				F54E1166173DBE6D00FE6C42 /* test1.smile in Resources */,
+				F54E1168173DBE6D00FE6C42 /* test2.smile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,6 +945,7 @@
 				F62D0C647C240A9C32CF3021 /* SBSmileGeneratorTest.m in Sources */,
 				F62D0886412919B9F8045F0C /* SBSmileParserTest.m in Sources */,
 				F62D04E543BDC086C0AE1C5B /* SBSmileRoundTripTest.m in Sources */,
+				F62D07F7669A075E44FE079C /* SBSmileInteropTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,6 +987,7 @@
 				F62D055E689E3478F3D81BD6 /* SBSmileGeneratorTest.m in Sources */,
 				F62D0F1ED54C98E7F8A1D133 /* SBSmileParserTest.m in Sources */,
 				F62D084133AE15884D1A18A6 /* SBSmileRoundTripTest.m in Sources */,
+				F62D010076A8E72EC95A187E /* SBSmileInteropTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

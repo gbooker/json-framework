@@ -47,7 +47,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _stringIndex = SMILE_MAX_SHARED_NAMES - 1;
+        _stringIndex = 0;
         _strings = [[NSMutableDictionary alloc] init];
         _stringIndexes = [[NSMutableArray alloc] init];
     }
@@ -71,11 +71,10 @@
 
 - (void)addString:(NSString *)string
 {
-    _stringIndex = (_stringIndex + 1) % SMILE_MAX_SHARED_NAMES;
-    if (_stringIndexes.count > _stringIndex) {
-        SBSmileSharedStringContainer *existing = _stringIndexes[_stringIndex];
-        if (existing != nil)
-            _strings[existing.value] = nil;
+    if (_stringIndex == SMILE_MAX_SHARED_NAMES) {
+        [_strings removeAllObjects];
+        [_stringIndexes removeAllObjects];
+        _stringIndex = 0;
     }
     SBSmileSharedStringContainer *newString = [SBSmileSharedStringContainer stringWithValue:string index:_stringIndex];
     _strings[string] = newString;
@@ -83,6 +82,7 @@
         _stringIndexes[_stringIndex] = newString;
     else
         [_stringIndexes addObject:newString];
+    _stringIndex++;
 }
 
 @end

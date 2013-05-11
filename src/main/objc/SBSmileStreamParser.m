@@ -257,7 +257,7 @@
                         case sbsmile_token_string_reference_long: {
                             int index;
                             if (tok == sbsmile_token_string_reference)
-                                index = (token[0] & 0x1F) + 1;
+                                index = (token[0] & 0x1F) - 1;
                             else
                                 index = ((token[0] & 0x3) << 8) | token[1];
                             [self.delegate parser:self foundString:[_sharedValues stringForIndex:index]];
@@ -280,7 +280,8 @@
                                 _smileState = [SBSmileStreamParserStateError sharedInstance];
                             }
                             else {
-                                [_sharedValues addString:string];
+                                if (token_len <= SMILE_MAX_SHARED_STRING_LENGTH_BYTES)
+                                    [_sharedValues addString:string];
                                 [self.delegate parser:self foundString:string];
                                 [_smileState parser:self shouldTransitionTo:tok];
                             }
@@ -290,7 +291,7 @@
                         case sbsmile_token_key_reference_long: {
                             int index;
                             if (tok == sbsmile_token_key_reference)
-                                index = (token[0] & 0x1F);
+                                index = (token[0] & 0x3F);
                             else
                                 index = ((token[0] & 0x3) << 8) | token[1];
                             [self.delegate parser:self foundObjectKey:[_sharedKeys stringForIndex:index]];
