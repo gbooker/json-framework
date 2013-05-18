@@ -11,6 +11,12 @@
 
 @class SBSmileStreamParserState;
 
+@protocol SBSmileStreamParserDelegate <SBJsonStreamParserDelegate>
+/// Called when a data value is found
+- (void)parser:(SBJsonStreamParser*)parser foundData:(NSData *)data;
+@end
+
 @interface SBSmileStreamParser : SBJsonStreamParser
+@property (nonatomic, weak) id<SBSmileStreamParserDelegate> smileDelegate;
 @property (nonatomic, strong) SBSmileStreamParserState *smileState;
 @end

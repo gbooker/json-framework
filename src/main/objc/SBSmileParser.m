@@ -9,6 +9,7 @@
 #import <SBJson/SBJsonStreamParserAccumulator.h>
 #import "SBSmileParser.h"
 #import "SBSmileStreamParser.h"
+#import "SBSmileStreamParserAdapter.h"
 
 
 @implementation SBSmileParser {
@@ -37,12 +38,12 @@
 
     SBJsonStreamParserAccumulator *accumulator = [[SBJsonStreamParserAccumulator alloc] init];
 
-    SBJsonStreamParserAdapter *adapter = [[SBJsonStreamParserAdapter alloc] init];
+    SBSmileStreamParserAdapter *adapter = [[SBSmileStreamParserAdapter alloc] init];
     adapter.delegate = accumulator;
 
     SBSmileStreamParser *parser = [[SBSmileStreamParser alloc] init];
     parser.maxDepth = self.maxDepth;
-    parser.delegate = adapter;
+    parser.smileDelegate = adapter;
 
     switch ([parser parse:data]) {
         case SBJsonStreamParserComplete:

@@ -17,4 +17,6 @@
 @property (nonatomic) BOOL allowRawBinaryData;
 
 - (BOOL)writeEnd;
+
+- (BOOL)writeData:(NSData *)data;
 @end

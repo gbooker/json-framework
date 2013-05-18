@@ -90,6 +90,12 @@ static NSNumber *kNegativeInfinity;
     return YES;
 }
 
+- (BOOL)writeValue:(id)v {
+    if ([v isKindOfClass:[NSData class]])
+        return [self writeData:(NSData *)v];
+    return [super writeValue:v];
+}
+
 - (BOOL)writeBool:(BOOL)x {
     return [self writeBlock:^{
         char value = x ? SMILE_TOKEN_LITERAL_TRUE : SMILE_TOKEN_LITERAL_FALSE;
@@ -469,6 +475,93 @@ static NSNumber *kNegativeInfinity;
 
     [self.state transitionState:self];
     return YES;
+}
+
+- (BOOL)writeData:(NSData *)data {
+    if ([self.state isInvalidState:self]) return NO;
+    if ([self.state expectingKey:self]) return NO;
+    [self checkWriteHeader];
+
+    if (_binaryAllowed)
+        [self writeRawBinaryData:data];
+    else
+        [self write7BitBinaryData:data];
+
+    [self.state transitionState:self];
+    return YES;
+}
+
+- (void)writeRawBinaryData:(NSData *)data {
+    unsigned char values[] = {SMILE_TOKEN_MISC_BINARY_RAW, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    NSUInteger length = data.length;
+    NSUInteger index = 1;
+    if (length <= UINT_MAX)
+        index = [self writeVint:(uint32_t)length toArray:values offset:index];
+    else
+        index = [self write64Vint:length toArray:values offset:index];
+    [self.delegate writer:self appendBytes:values length:index];
+    [self.delegate writer:self appendBytes:data.bytes length:length];
+}
+
+- (void)write7BitBinaryData:(NSData *)data {
+    NSUInteger length = data.length;
+    NSUInteger encodedLength = ((length * 8) + 6) / 7;
+    unsigned char values[] = {SMILE_TOKEN_MISC_BINARY_7BIT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    NSUInteger index = 1;
+    if (encodedLength <= UINT_MAX)
+        index = [self writeVint:(uint32_t)encodedLength toArray:values offset:index];
+    else
+        index = [self write64Vint:encodedLength toArray:values offset:index];
+    [self.delegate writer:self appendBytes:values length:index];
+
+    NSUInteger originalIndex;
+    unsigned char const *originalDataBytes = data.bytes;
+    NSMutableData *encodedData = [[NSMutableData alloc] initWithLength:encodedLength];
+    unsigned char *encodedDataBytes = encodedData.mutableBytes;
+    NSUInteger encodedIndex = 0;
+    for (originalIndex = 0; (long)originalIndex < (long)length - 6; originalIndex+=7) {
+        unsigned char *encodedSegment = encodedDataBytes + encodedIndex;
+        unsigned char const *originalSegment = originalDataBytes + originalIndex;
+
+        encodedSegment[0] = (originalSegment[0]       ) >> 1;
+        encodedSegment[1] = (originalSegment[0] & 0x01) << 6 | originalSegment[1] >> 2;
+        encodedSegment[2] = (originalSegment[1] & 0x03) << 5 | originalSegment[2] >> 3;
+        encodedSegment[3] = (originalSegment[2] & 0x07) << 4 | originalSegment[3] >> 4;
+        encodedSegment[4] = (originalSegment[3] & 0x0F) << 3 | originalSegment[4] >> 5;
+        encodedSegment[5] = (originalSegment[4] & 0x1F) << 2 | originalSegment[5] >> 6;
+        encodedSegment[6] = (originalSegment[5] & 0x3F) << 1 | originalSegment[6] >> 7;
+        encodedSegment[7] = (originalSegment[6] & 0x7F);
+
+        encodedIndex += 8;
+    }
+    if (originalIndex < length) {
+        unsigned char *encodedSegment = encodedDataBytes + encodedIndex;
+        unsigned char const *originalSegment = originalDataBytes + originalIndex;
+
+        NSUInteger remaining = length - originalIndex;
+        uint64_t encoded = 0;
+
+        /**
+         *  Invariant: encoded always has bytes who's bits are of the form 0xxxxxxx, or the highest bit is always 0.
+         *
+         *  Start with encoded:                                                          xxxxxxxx 0abcdefg 0higjklm
+         *  1) To add a byte, shift encoded by 9 bits and or new byte, which results in: abcdefg0 higjklm0 nopqrstu
+         *  2) Mask off the highest order bit from each byte to get:                     a0000000 h0000000 n0000000
+         *  3) Shift by 1 bit to the left:                                             a 0000000h 0000000n 00000000
+         *  4) And 1 with complement of mask:                                          0 0bcdefg0 0igjklm0 0opqrstu
+         *  5) Or last two together:                                                   a 0bcdefgh 0igjklmn 0opqrstu
+         */
+        uint64_t highOrderMask = 0x8080808080808080;
+        for (int i = 0; i < remaining; i++) {
+            uint64_t step1 = (encoded << 9) | originalSegment[i];
+            uint64_t step3 = (step1 & highOrderMask) << 1;
+            encoded = (step1 & ~highOrderMask) | step3;
+        }
+        NSUInteger remainingEncoded = encodedLength - encodedIndex;
+        uint64_t writenBytes = NSSwapHostLongToBig(encoded);
+        memcpy(encodedSegment, ((unsigned char *)&writenBytes) + 8 - remainingEncoded, remainingEncoded);
+    }
+    [self.delegate writer:self appendBytes:encodedDataBytes length:encodedLength];
 }
 
 

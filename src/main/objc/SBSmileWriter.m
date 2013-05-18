@@ -81,6 +81,9 @@ static BOOL objectWrite(SBSmileWriter *self, id object, SBSmileStreamWriter *str
     else if ([object isKindOfClass:[NSArray class]])
         return [streamWriter writeArray:object];
 
+    else if ([object isKindOfClass:[NSData class]])
+        return [streamWriter writeData:object];
+
     else if ([object respondsToSelector:@selector(proxyForJson)])
         return objectWrite(self, [object proxyForJson], streamWriter);
     else {

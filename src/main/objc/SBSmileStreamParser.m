@@ -33,6 +33,10 @@
     return self;
 }
 
+- (void)setSmileDelegate:(id <SBSmileStreamParserDelegate>)smileDelegate {
+    _smileDelegate = smileDelegate;
+    self.delegate = smileDelegate;
+}
 
 #pragma mark Methods
 
@@ -319,6 +323,15 @@
                             }
                             break;
                         }
+                        case sbsmile_token_binary_escaped:
+                        case sbsmile_token_binary_raw: {
+                            NSData *data = [NSData dataWithBytes:token length:token_len];
+                            if (tok == sbsmile_token_binary_escaped)
+                                data = [self unescapeData:data];
+                            [_smileDelegate parser:self foundData:data];
+                            [_smileState parser:self shouldTransitionTo:tok];
+                            break;
+                        }
                         default:
                             break;
                     }
@@ -378,6 +391,50 @@
         memcpy(&number, &encoded, 8);
         return [NSNumber numberWithDouble:number];
     }
+}
+
+- (NSData *)unescapeData:(NSData *)escaped
+{
+    NSUInteger escapedLength = escaped.length;
+    NSUInteger originalLength = (escapedLength * 7) / 8;
+
+    unsigned char const *escapedDataBytes = escaped.bytes;
+    NSMutableData *originalData = [[NSMutableData alloc] initWithLength:originalLength];
+    unsigned char *originalDataBytes = originalData.mutableBytes;
+
+    int originalIndex = 0;
+    int escapedIndex;
+    for (escapedIndex = 0; (long)escapedIndex < (long)escapedLength - 7; escapedIndex+=8) {
+        unsigned char const *escapedSegment = escapedDataBytes + escapedIndex;
+        unsigned char *originalSegment = originalDataBytes + originalIndex;
+
+        originalSegment[0] = (escapedSegment[0] << 1) | ((escapedSegment[1] & 0x7F) >> 6);
+        originalSegment[1] = (escapedSegment[1] << 2) | ((escapedSegment[2] & 0x7F) >> 5);
+        originalSegment[2] = (escapedSegment[2] << 3) | ((escapedSegment[3] & 0x7F) >> 4);
+        originalSegment[3] = (escapedSegment[3] << 4) | ((escapedSegment[4] & 0x7F) >> 3);
+        originalSegment[4] = (escapedSegment[4] << 5) | ((escapedSegment[5] & 0x7F) >> 2);
+        originalSegment[5] = (escapedSegment[5] << 6) | ((escapedSegment[6] & 0x7F) >> 1);
+        originalSegment[6] = (escapedSegment[6] << 7) |  (escapedSegment[7] & 0x7F)      ;
+
+        originalIndex += 7;
+    }
+
+    if (escapedIndex < escapedLength) {
+        unsigned char const *escapedSegment = escapedDataBytes + escapedIndex;
+        unsigned char *originalSegment = originalDataBytes + originalIndex;
+
+        NSUInteger remaining = escapedLength - escapedIndex;
+
+        unsigned char remainingBits = escapedSegment[0] & 0x7F;
+        for (int i = 1; i < remaining; i++) {
+            NSUInteger bytesLeft = remaining - i - 1;
+            unsigned char nextBits = escapedSegment[i] & 0x7F;
+            unsigned char value = (remainingBits << (7 - bytesLeft)) | nextBits >> (bytesLeft);
+            originalSegment[i-1] = value;
+            remainingBits = nextBits;
+        }
+    }
+    return originalData;
 }
 
 @end

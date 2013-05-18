@@ -7,6 +7,7 @@
 
 
 #import <SBJson/SBSmileConstants.h>
+#import <SBJson/SBSmileWriter.h>
 #import "SBSmileParser.h"
 
 @interface SBSmileParserTest : SenTestCase

@@ -140,5 +140,118 @@
     }];
 }
 
+static int SIZES[] = {
+        1, 2, 3, 4, 5, 6,
+        7, 8, 12,
+        100, 350, 1900, 6000, 19000, 65000,
+        139000
+};
+static int SIZES_COUNT = sizeof(SIZES) / sizeof(int);
+
+- (void)testRawAsArray
+{
+    [self _testBinaryAsArray:true];
+}
+
+- (void)test7BitAsArray
+{
+    [self _testBinaryAsArray:false];
+}
+
+// Added based on [JACKSON-376]
+- (void)testRawAsObject
+{
+    [self _testBinaryAsObject:true];
+}
+
+// Added based on [JACKSON-376]
+- (void)test7BitAsObject
+{
+    [self _testBinaryAsObject:false];
+}
+
+- (void)testRawAsRootValue
+{
+    [self _testBinaryAsRoot:true];
+}
+
+- (void)test7BitAsRootValue
+{
+    [self _testBinaryAsRoot:false];
+}
+
+// [Issue-17] (streaming binary reads)
+- (void)testStreamingRaw
+{
+    [self _testBinaryAsObject:true];
+}
+
+// [Issue-17] (streaming binary reads)
+- (void)testStreamingEncoded
+{
+    [self _testBinaryAsObject:false];
+}
+
+/*
+ **********************************************************
+ * Helper methods
+ **********************************************************
+ */
+
+- (void)_testBinaryAsRoot:(BOOL)raw
+{
+    [self _testBinaryRoundTrip:^id(NSData *data) {
+        return data;
+    } verify:^(NSData *result, NSData *data) {
+        STAssertEqualObjects(data, result, @"failed to match binary data");
+    } raw:raw];
+}
+
+- (void)_testBinaryAsArray:(BOOL)raw
+{
+    [self _testBinaryRoundTrip:^id(NSData *data) {
+        return @[data, @1];
+    } verify:^(NSArray *result, NSData *data) {
+        STAssertEqualObjects(result[0], data, @"Failed to match binary data");
+        STAssertEqualObjects(result[1], @1, @"Failed to match following number");
+    } raw:raw];
+}
+
+- (void)_testBinaryAsObject:(BOOL)raw
+{
+    [self _testBinaryRoundTrip:^id(NSData *data) {
+        return @{@"b":data};
+    } verify:^(NSDictionary *result, NSData *data) {
+        STAssertEqualObjects(result[@"b"], data, @"Failed to match binary data");
+    } raw:raw];
+}
+
+- (void)_testBinaryRoundTrip:(id(^)(NSData *data))makeObject verify:(void(^)(id result, NSData *data))verifyBlock raw:(BOOL)raw
+{
+    SBSmileWriter *writer = [[SBSmileWriter alloc] init];
+    writer.allowRawBinaryData = raw;
+    for (int i = 0; i < SIZES_COUNT; i++) {
+        int size = SIZES[i];
+        NSData *data = [self _generateData:size];
+        NSData *smileData = [writer dataWithObject:makeObject(data)];
+
+        // and verify
+        SBSmileParser *parser = [[SBSmileParser alloc] init];
+        id result = [parser objectWithData:smileData];
+        verifyBlock(result, data);
+    }
+}
+
+- (NSData *)_generateData:(int)size
+{
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:size];
+    char *result = data.mutableBytes;
+    for (int i = 0; i < size; ++i) {
+        result[i] = (char) (i % 255);
+    }
+    return data;
+}
+
+
 
 @end

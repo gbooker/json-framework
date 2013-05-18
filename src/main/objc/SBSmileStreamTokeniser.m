@@ -89,6 +89,30 @@
     return sbsmile_token_eof;
 }
 
+- (sbsmile_token_t)decodeLength:(NSUInteger *)length token:(sbsmile_token_t)token;
+{
+    NSUInteger len = 0;
+    unsigned char ch;
+    NSUInteger value = 0;
+    while (len < 10 && [self getChar:&ch]) {
+        len++;
+        _index++;
+        if (ch & 0x80) {
+            value = (value << 6) | (ch & 0x3F);
+            *length = value;
+            return token;
+        }
+        else {
+            value = (value << 7) | ch;
+        }
+    }
+    if (len == 10) {
+        self.error = [NSString stringWithFormat:@"Vint for length exceeds length max of 10"];
+        return sbsmile_token_error;
+    }
+    return sbsmile_token_eof;
+}
+
 - (sbsmile_token_t)findEndOfString:(const unsigned char **)token length:(NSUInteger *)length retval:(sbsmile_token_t)tok
 {
     NSUInteger start = _index;
@@ -253,10 +277,18 @@
                     case 4:
                         //0xE4: long variable length ascii
                         return [self findEndOfString:token length:length retval:sbsmile_token_string_v_utf8];
-                    case 8:
+                    case 8: {
                         //0xE8: 7-bit binary
-                        //TODO binary
-                        return sbsmile_token_error;
+                        _index++;
+                        NSUInteger len;
+                        tok = [self decodeLength:&len token:sbsmile_token_binary_escaped];
+                        if (tok == sbsmile_token_binary_escaped) {
+                            *token = (_bytes + _index);
+                            *length = len;
+                            _index += len;
+                        }
+                        break;
+                    }
                     case 0xC:
                     case 0xD:
                     case 0xE:
@@ -282,10 +314,18 @@
                         tok = sbsmile_token_object_open;
                         _index++;
                         break;
-                    case 0x1D:
+                    case 0x1D: {
                         //0xFD: raw binary
-                        //TODO unescaped binary
-                        return sbsmile_token_error;
+                        _index++;
+                        NSUInteger len;
+                        tok = [self decodeLength:&len token:sbsmile_token_binary_raw];
+                        if (tok == sbsmile_token_binary_raw) {
+                            *token = (_bytes + _index);
+                            *length = len;
+                            _index += len;
+                        }
+                        break;
+                    }
                     default:
                         self.error = [NSString stringWithFormat:@"Invalid value token 0x%x", ch];
                         return sbsmile_token_error;
