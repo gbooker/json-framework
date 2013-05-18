@@ -61,10 +61,12 @@ static NSNumber *kNegativeInfinity;
     if (_shareStringValues) {
         header[3] |= SMILE_HEADER_BIT_HAS_SHARED_STRING_VALUES;
         _sharedValues = [[SBSmileSharedString alloc] init];
+        _writeHeader = YES;
     }
     if (_allowRawBinaryData) {
         header[3] |= SMILE_HEADER_BIT_HAS_RAW_BINARY;
         _binaryAllowed = YES;
+        _writeHeader = YES;
     }
     if (_writeHeader)
         [self writeDelegateBytes:header length:4];
@@ -316,55 +318,65 @@ static NSNumber *kNegativeInfinity;
 }
 
 - (void)writeShortInt:(int)number {
-    char value = SMILE_TOKEN_PREFIX_SMALL_INT + (char)[SmileUtil zigzagEncode:(int)number];
+    char value = SMILE_TOKEN_PREFIX_SMALL_INT + (char)[SmileUtil zigzagEncode:number];
     [self writeDelegateBytes:&value length:1];
 }
 
 - (void)write32BitInt:(int32_t)number {
-    char values[] = {SMILE_TOKEN_PREFIX_INTEGER + SMILE_TOKEN_MISC_INTEGER_32, 0, 0, 0, 0, 0};
-    int index = 1;
+    unsigned char values[] = {SMILE_TOKEN_PREFIX_INTEGER + SMILE_TOKEN_MISC_INTEGER_32, 0, 0, 0, 0, 0};
+    NSUInteger index = 1;
     uint32_t encoded = [SmileUtil zigzagEncode:number];
-    if (encoded > 0x7FFFFFF) {
-        values[index++] = (char)((encoded >> 27) & 0x7F);
-    }
-    if (encoded > 0xFFFFF) {
-        values[index++] = (char)((encoded >> 20) & 0x7F);
-    }
-    if (encoded > 0x1FFF) {
-        values[index++] = (char)((encoded >> 13) & 0x7F);
-    }
-    if (encoded > 0x3F) {
-        values[index++] = (char)((encoded >> 6) & 0x7F);
-    }
-    values[index++] = (char)(encoded & 0x3F) | 0x80;
+    index = [self writeVint:encoded toArray:values offset:index];
     [self writeDelegateBytes:values length:index];
 }
 
 - (void)write64BitInt:(int64_t)number {
-    char values[] = {SMILE_TOKEN_PREFIX_INTEGER + SMILE_TOKEN_MISC_INTEGER_64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    int index = 1;
+    unsigned char values[] = {SMILE_TOKEN_PREFIX_INTEGER + SMILE_TOKEN_MISC_INTEGER_64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    NSUInteger index = 1;
     uint64_t encoded = [SmileUtil zigzagEncodeLong:number];
-    if (encoded > 0x3FFFFFFFFFFFFFFF) {
-        values[index++] = (char)((encoded >> 62) & 0x7F);
-    }
-    if (encoded > 0x7FFFFFFFFFFFFF) {
-        values[index++] = (char)((encoded >> 55) & 0x7F);
-    }
-    if (encoded > 0xFFFFFFFFFFFF) {
-        values[index++] = (char)((encoded >> 48) & 0x7F);
-    }
-    if (encoded > 0x1FFFFFFFFFF) {
-        values[index++] = (char)((encoded >> 41) & 0x7F);
-    }
-    if (encoded > 0x3FFFFFFFF) {
-        values[index++] = (char)((encoded >> 34) & 0x7F);
-    }
-    values[index++] = (char)((encoded >> 27) & 0x7F);
-    values[index++] = (char)((encoded >> 20) & 0x7F);
-    values[index++] = (char)((encoded >> 13) & 0x7F);
-    values[index++] = (char)((encoded >> 6) & 0x7F);
-    values[index++] = (char)(encoded & 0x3F) | 0x80;
+    index = [self write64Vint:encoded toArray:values offset:index];
     [self writeDelegateBytes:values length:index];
+}
+
+- (NSUInteger)writeVint:(uint32_t)value toArray:(unsigned char *)bytes offset:(NSUInteger)offset {
+    if (value > 0x7FFFFFF) {
+        bytes[offset++] = (unsigned char)((value >> 27) & 0x7F);
+    }
+    if (value > 0xFFFFF) {
+        bytes[offset++] = (unsigned char)((value >> 20) & 0x7F);
+    }
+    if (value > 0x1FFF) {
+        bytes[offset++] = (unsigned char)((value >> 13) & 0x7F);
+    }
+    if (value > 0x3F) {
+        bytes[offset++] = (unsigned char)((value >> 6) & 0x7F);
+    }
+    bytes[offset++] = (unsigned char)(value & 0x3F) | 0x80;
+    return offset;
+}
+
+- (NSUInteger)write64Vint:(uint64_t)value toArray:(unsigned char *)bytes offset:(NSUInteger)offset {
+    if (value > 0x3FFFFFFFFFFFFFFF) {
+        bytes[offset++] = (unsigned char)((value >> 62) & 0x7F);
+    }
+    if (value > 0x7FFFFFFFFFFFFF) {
+        bytes[offset++] = (unsigned char)((value >> 55) & 0x7F);
+    }
+    if (value > 0xFFFFFFFFFFFF) {
+        bytes[offset++] = (unsigned char)((value >> 48) & 0x7F);
+    }
+    if (value > 0x1FFFFFFFFFF) {
+        bytes[offset++] = (unsigned char)((value >> 41) & 0x7F);
+    }
+    if (value > 0x3FFFFFFFF) {
+        bytes[offset++] = (unsigned char)((value >> 34) & 0x7F);
+    }
+    bytes[offset++] = (unsigned char)((value >> 27) & 0x7F);
+    bytes[offset++] = (unsigned char)((value >> 20) & 0x7F);
+    bytes[offset++] = (unsigned char)((value >> 13) & 0x7F);
+    bytes[offset++] = (unsigned char)((value >> 6) & 0x7F);
+    bytes[offset++] = (unsigned char)(value & 0x3F) | 0x80;
+    return offset;
 }
 
 - (void)writeFloat:(float)number {
