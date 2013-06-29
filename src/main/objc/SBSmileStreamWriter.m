@@ -267,22 +267,16 @@ static NSNumber *kNegativeInfinity;
     }
 
     const char *objcType = [number objCType];
+    BOOL result = YES;
 
     switch (objcType[0]) {
         case 'c': case 'i': case 's': case 'l': case 'q':
             [self writeLongLong:number];
             break;
         case 'C': case 'I': case 'S': case 'L': case 'Q':
-            [self writeUnsignedLongLong:number];
+            result = [self writeUnsignedLongLong:number];
             break;
         case 'f': case 'd': default:
-            if ([number isKindOfClass:[NSDecimalNumber class]]) {
-                //TODO
-                char const *utf8 = [[number stringValue] UTF8String];
-                [self writeDelegateBytes:utf8 length: strlen(utf8)];
-                [self.state transitionState:self];
-                return YES;
-            }
             if (objcType[0] == 'f')
                 [self writeFloat:[number floatValue]];
             else
@@ -290,7 +284,7 @@ static NSNumber *kNegativeInfinity;
             break;
     }
     [self.state transitionState:self];
-    return YES;
+    return result;
 }
 
 - (void)writeLongLong:(NSNumber *)number {
@@ -306,7 +300,7 @@ static NSNumber *kNegativeInfinity;
     }
 }
 
-- (void)writeUnsignedLongLong:(NSNumber *)number {
+- (BOOL)writeUnsignedLongLong:(NSNumber *)number {
     unsigned long long value = [number unsignedLongLongValue];
     if (value <= 15) {
         [self writeShortInt:[number intValue]];
@@ -318,9 +312,9 @@ static NSNumber *kNegativeInfinity;
         [self write64BitInt:(int64_t) value];
     }
     else {
-        //TODO BigInt
-        ;
+        return NO;
     }
+    return YES;
 }
 
 - (void)writeShortInt:(int)number {

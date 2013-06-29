@@ -31,6 +31,7 @@ typedef enum {
     sbsmile_token_integer_vint,
     sbsmile_token_real_32,
     sbsmile_token_real_64,
+    sbsmile_token_real_big,
 
     sbsmile_token_string_empty,
     sbsmile_token_string_reference,

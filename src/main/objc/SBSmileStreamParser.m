@@ -58,6 +58,7 @@
         case sbsmile_token_integer_vint:
         case sbsmile_token_real_32:
         case sbsmile_token_real_64:
+        case sbsmile_token_real_big:
             return @"number";
 
         case sbsmile_token_string_empty:
@@ -252,6 +253,11 @@
                             break;
                         }
 
+                        case sbsmile_token_real_big:
+                            //TODO
+                            //There is no native library that provides an equivalent of BigDecimal, so give up
+                            @throw @"FUT FUT FUT";
+
                         case sbsmile_token_string_empty:
                             [self.delegate parser:self foundString:@""];
                             [_smileState parser:self shouldTransitionTo:tok];
@@ -360,6 +366,7 @@
         }
         case sbsmile_token_integer_big:
             //TODO
+            //There is no native library that provides an equivalent of BigInteger, so give up
         default: @throw @"FUT FUT FUT";
     }
 }

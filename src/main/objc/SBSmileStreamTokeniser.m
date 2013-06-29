@@ -186,11 +186,14 @@
                     }
                     case 6: {
                         //0x26: BigInt
-                        //TODO
-//                        _index++;
-//                        sbsmile_token_t result = [self findVint:token length:length max:5];
-//                        if (result == sbsmile_token_integer_vint)
-                        return sbsmile_token_error;
+                        NSUInteger len;
+                        tok = [self decodeLength:&len token:sbsmile_token_integer_big];
+                        if (tok == sbsmile_token_integer_big) {
+                            *token = (_bytes + _index);
+                            *length = len;
+                            _index += len;
+                        }
+                        break;
                     }
                     case 8: {
                         //0x28: 32-bit float
@@ -220,8 +223,19 @@
                     }
                     case 0xA: {
                         //0x2A: BigDecimal
-                        //TODO
-                        return sbsmile_token_error;
+                        _index++;
+                        NSUInteger start = _index;
+                        tok = [self findVint:token length:length max:5 retval:sbsmile_token_integer_32];
+                        if (tok == sbsmile_token_integer_32) {
+                            NSUInteger len;
+                            tok = [self decodeLength:&len token:sbsmile_token_real_big];
+                            if (tok == sbsmile_token_real_big) {
+                                *token = (_bytes + start);
+                                *length = _index - start;
+                                _index += len;
+                            }
+                        }
+                        break;
                     }
                     case 0x1A:
                         if ([self haveRemainingCharacters:4]) {
