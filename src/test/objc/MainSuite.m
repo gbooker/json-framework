@@ -51,7 +51,6 @@ static NSString *chomp(NSString *str) {
             continue;
 
         count++;
-        NSLog(@"Running test: %@", [fileName stringByDeletingPathExtension]);
         block(inpath, outpath);
     }
 }
@@ -63,10 +62,10 @@ static NSString *chomp(NSString *str) {
 
         NSString *output = [writer stringWithObject:value];
         STAssertNotNil(output, writer.error);
-        STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+        STAssertEqualObjects(output, chomp(slurp(outpath)), [[inpath pathComponents] lastObject]);
     }];
     
-    STAssertEquals(count, (NSUInteger)40, nil);
+    STAssertEquals(count, (NSUInteger)37, nil);
 }
 
 - (void)IGNOREDtestReallyBrokenUTF8 {
@@ -88,10 +87,10 @@ static NSString *chomp(NSString *str) {
 
     [self inExtForeachInSuite:@"main" inext:@"in" outExt:@"err" block:^(NSString *inpath, NSString *outpath) {
         STAssertNil([parser objectWithData:slurpd(inpath)], nil);
-        STAssertEqualObjects(parser.error, chomp(slurp(outpath)), nil);
+        STAssertEqualObjects(parser.error, chomp(slurp(outpath)), [[inpath pathComponents] lastObject]);
     }];
     
-    STAssertEquals(count, (NSUInteger)39, nil);
+    STAssertEquals(count, (NSUInteger)35, nil);
 
 }
 
@@ -128,9 +127,11 @@ static NSString *chomp(NSString *str) {
         id value = [parser objectWithData:slurpd(inpath)];
         STAssertNotNil(value, parser.error);
 
+        NSString *name = [[inpath pathComponents] lastObject];
+        
         NSString *output = [writer stringWithObject:value];
-        STAssertNotNil(output, writer.error);
-        STAssertEqualObjects(output, chomp(slurp(outpath)), nil);
+        STAssertNotNil(output, @"%@: %@", name, writer.error);
+        STAssertEqualObjects(output, chomp(slurp(outpath)), name);
     }];
     
     STAssertEquals(count, (NSUInteger)8, nil);
